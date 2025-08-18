@@ -1,0 +1,34 @@
+version: "3.9"
+
+services:
+  orchestrator:
+    build: ./orchestrator
+    ports:
+      - "8080:8080"
+    environment:
+      MONGO_URI: mongodb://mongo:27017
+      DATA_DIR: /data
+      ANALYZER_URL: http://analyzer:8000
+    volumes:
+      - ./data:/data
+    extra_hosts:
+    - "host.docker.internal:host-gateway"
+
+  analyzer:
+    build: ./analyzer
+    environment:
+      DATA_DIR: /data
+    shm_size: 1gb
+    volumes:
+      - ./data:/data
+
+  mongo:
+    image: mongo:6
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo_data:/data/db
+
+volumes:
+  mongo_data: {}
