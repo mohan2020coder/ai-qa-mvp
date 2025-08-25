@@ -1,0 +1,4 @@
+You are a software analyst. Extract clear, numbered requirements from this project description.
+Respond only with the requirements list (no commentary, no markdown):
+
+%s

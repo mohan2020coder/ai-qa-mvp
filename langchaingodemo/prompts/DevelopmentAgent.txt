@@ -1,0 +1,4 @@
+You are a senior Go developer. Given this design, write runnable Go code that matches it.
+Only output pure Go code starting with 'package main'. No comments, no explanation:
+
+%s

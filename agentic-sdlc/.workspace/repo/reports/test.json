@@ -1,0 +1,5 @@
+{
+  "cmd": "C:\\Program Files\\Go\\bin\\go.exe test ./... -count=1",
+  "output": "?   \tapp/cmd/app\t[no test files]\nok  \tapp/internal/app/handlers\t0.162s\n",
+  "passed": true
+}

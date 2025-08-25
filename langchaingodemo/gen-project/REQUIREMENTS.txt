@@ -1,0 +1,5 @@
+1. Develop a CLI tool in Go language for managing tasks with create, list, and delete functionality.  
+2. Store all task data persistently using a local JSON file.  
+3. Implement the ability to add new tasks (create) to the JSON storage.  
+4. Provide a command to retrieve and display all existing tasks from the JSON file (list).  
+5. Allow removal of specific tasks from the JSON storage (delete).

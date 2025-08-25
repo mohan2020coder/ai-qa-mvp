@@ -1,0 +1,7 @@
+You are a DevOps engineer. Given this Go application, create:
+- a minimal Dockerfile
+- a README.md with build & run instructions
+Respond only with the Dockerfile contents first, followed by three dashes "---" on a line by itself,
+then the README.md content. No commentary or extra text.
+
+%s

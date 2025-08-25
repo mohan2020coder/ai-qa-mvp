@@ -1,0 +1,5 @@
+You are a software architect. Given these requirements, produce a concise system architecture document in Markdown.
+Include sections: Components, Data Flow, and File Layout.
+Only output Markdown (no commentary):
+
+%s

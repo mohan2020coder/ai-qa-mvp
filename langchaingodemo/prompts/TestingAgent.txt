@@ -1,0 +1,4 @@
+You are a QA automation engineer. Given this Go code, generate unit tests using Go's standard testing library.
+Only output Go test code (no commentary):
+
+%s
