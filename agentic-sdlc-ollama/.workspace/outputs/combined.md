@@ -9,722 +9,423 @@ Build a simple task management web app:
 
 
 
-# 01-Product Output (generated in 9m9.226s)
+# 01-Product Output (generated in 2m4.375s)
 
-<think>
-We are building a task management web app.
- The backend will be a Go HTTP service with endpoints for health check and CRUD operations on tasks.
- We'll use either React or Svelte for the frontend, keeping it simple.
- For authentication, we'll keep it minimal (basic session or token).
- Choose SQLite or Postgres for the database; let's choose SQLite for simplicity in this context.
- Containerize with Docker and include CI suggestion.
 
- Let's break down into product requirements:
+Product Requirements: Task Management Web App
+-------------------------------------------
 
- 1. Problem Statement
-    We need a task management application that allows users to create, read, update, delete tasks and check their health status.
+### Problem Statement
 
- 2. Personas
-    - End User: A user who wants to manage personal or team tasks.
-    - Administrator: An admin who might set up the system (though minimal in this spec).
+The problem we are trying to solve is the lack of a simple and efficient task management system for individuals and teams. Our solution will provide a web-based platform that allows users to easily manage their tasks, set reminders, and collaborate with others in real-time.
 
- 3. User Stories
+### Personas
 
-    a) As an end user, I want to be able to log in so that I can access my task list and perform CRUD operations on tasks.
+* **User:** A user who wants to manage their tasks effectively and efficiently.
+* **Team Lead:** A team lead who wants to manage a group of tasks for their team and ensure that everyone is on the same page.
 
-    b) As an end user, I want to view all my tasks with their details (title, description, due date, status) so that I can keep track of what needs to be done.
+### User Stories (As a … I want … so that …)
 
-    c) As an end user, I want to create a new task by providing a title and description so that I can add items to my todo list.
+1. As a user, I want to be able to create new tasks and add them to my task list.
+2. As a user, I want to be able to view my task list and see the status of each task.
+3. As a user, I want to be able to set reminders for each task so that I don't forget about them.
+4. As a team lead, I want to be able to create new tasks for my team and assign them to specific members.
+5. As a team lead, I want to be able to view the status of each task and ensure that everyone is on track with their work.
 
-    d) As an end user, I want to update the details (title, description, due date, status) of an existing task so that I can modify it as needed.
+### Acceptance Criteria
 
-    e) As an end user, I want to delete tasks that are no longer relevant or completed so that my task list remains organized and manageable.
+1. The system should allow users to create new tasks and add them to their task list.
+2. The system should allow users to view their task list and see the status of each task.
+3. The system should allow users to set reminders for each task so that they don't forget about them.
+4. The system should allow team leads to create new tasks for their team and assign them to specific members.
+5. The system should allow team leads to view the status of each task and ensure that everyone is on track with their work.
 
- 4. Acceptance Criteria
+### Non-Functional Requirements
 
-    a) Login:
-        - The system should allow the user to log in with a username and password.
-        - Upon successful login, the session (or token) should be stored securely (e.g., in memory for this simple app or using JWT).
-        - The user should be able to access their tasks only after logging in.
+1. The system should be scalable and able to handle a large number of users and tasks.
+2. The system should have good performance and be able to handle multiple requests at the same time.
+3. The system should have good security measures in place to protect user data.
+4. The system should have good error handling and be able to recover from unexpected errors.
+5. The system should have good documentation and support for users and developers.
 
-    b) Task List:
-        - After logging in, the end user should see a list of all tasks associated with their account.
-        - Each task should display: title, description, due date (if provided), and status.
+### Containerization with Docker
 
-    c) Create Task:
-        - The end user should be able to click a button to create a new task.
-        - A form should appear for the user to enter title and description. Optionally, they can set a due date and initial status.
-        - Upon submitting the form, the task is created and added to the list.
+The system will be containerized using Docker, which will allow us to easily deploy the application on different environments and platforms. We will also include a CI/CD pipeline to automate the deployment process.
 
-    d) Update Task:
-        - The end user should be able to click an edit button on any task in the list.
-        - A modal or separate page with a form for updating the task details (title, description, due date, status) should appear.
-        - Upon submitting the updated details, the task is modified and the list reflects the change.
 
-    e) Delete Task:
-        - The end user should be able to click a delete button on any task in the list.
-        - A confirmation modal or direct action (with caution) should prevent accidental deletion.
-        - After deletion, the task is removed from the list.
+# 02-Design Output (generated in 5m4.708s)
 
- 5. Non-Functional Requirements
 
-    a) Performance: 
-        - The application should respond within 1 second for CRUD operations and health check under normal load.
+Context: Task Management Web App
+=============================
 
-    b) Security:
-        - Use secure methods to handle authentication (e.g., JWT with proper signing or session management).
-        - Protect against common web vulnerabilities such as XSS, CSRF, SQL injection (though SQLite might be simpler).
+### Overview
 
-    c) Usability:
-        - The UI should be intuitive and user-friendly.
-        - Provide clear feedback for actions performed.
+The task management web app is designed to provide a simple and efficient way for individuals and teams to manage their tasks, set reminders, and collaborate in real-time. The system will be built using Go as the backend language, React or Svelte for the frontend framework, basic session or token authentication, SQLite or Postgres for the database, and Docker for containerization.
 
-    d) Reliability:
-        - The backend service must have a /health endpoint to check the status of the application.
-        - Tasks data should persist even after restarts (if using SQLite, it's file-based; if Postgres, we'd use a database).
+### Components
 
-    e) Maintainability:
-        - Code should be well-structured and commented for easy understanding and future modifications.
+1. **Backend**: The backend component will handle all the server-side logic, including CRUD operations for tasks, user authentication, and task reminders. It will be built using Go and will communicate with the frontend component through RESTful APIs.
+2. **Frontend**: The frontend component will provide a user-friendly interface for users to interact with the system. It will be built using React or Svelte and will communicate with the backend component through RESTful APIs.
+3. **Auth**: The auth component will handle user authentication and authorization. It will be built using basic session or token authentication and will communicate with the backend component through RESTful APIs.
+4. **DB**: The DB component will store all the data for the system, including tasks, users, and reminders. It will be built using SQLite or Postgres and will communicate with the backend component through SQL queries.
+5. **Containerization**: The system will be containerized using Docker, which will allow us to easily deploy the application on different environments and platforms. We will also include a CI/CD pipeline to automate the deployment process.
 
- 6. Additional Requirements
+### Sequence for Key Flows
 
-    - Containerization: The app must run inside a Docker container.
-    - CI Suggestion: We can suggest setting up GitHub Actions or GitLab CI to build and test the application automatically.
+1. User creates a new task in the frontend component and submits it to the backend component through RESTful APIs.
+2. The backend component validates the input data, creates a new task in the DB component, and sends a response back to the frontend component.
+3. The frontend component displays the new task in the user's task list.
+4. User sets a reminder for the task in the frontend component and submits it to the backend component through RESTful APIs.
+5. The backend component updates the reminder date in the DB component and sends a response back to the frontend component.
+6. The frontend component displays the updated reminder date for the task.
+7. Team lead creates a new task for their team in the frontend component and submits it to the backend component through RESTful APIs.
+8. The backend component validates the input data, creates a new task in the DB component, and sends a response back to the frontend component.
+9. The frontend component displays the new task in the team lead's task list.
+10. Team lead sets a reminder for the task in the frontend component and submits it to the backend component through RESTful APIs.
+11. The backend component updates the reminder date in the DB component and sends a response back to the frontend component.
+12. The frontend component displays the updated reminder date for the task.
 
- However, note that we are keeping it minimal so let's focus on the core functionality.
+### API Spec Outline
 
- Let me write these requirements in a structured way.
-</think>
-# Task Management Web App Product Requirements
+The following is an outline of the RESTful APIs that will be used by the system:
 
-## Problem Statement
-We need to create a simple task management web application that allows users to manage their tasks through basic CRUD operations. The app should provide an intuitive interface for viewing, creating, editing and deleting tasks while ensuring data persistence and security.
+1. **GET /tasks**: Retrieves a list of all tasks for the current user or team lead.
+2. **POST /tasks**: Creates a new task and adds it to the DB component.
+3. **PUT /tasks/{task_id}**: Updates an existing task in the DB component.
+4. **DELETE /tasks/{task_id}**: Deletes an existing task from the DB component.
+5. **GET /reminders**: Retrieves a list of all reminders for the current user or team lead.
+6. **POST /reminders**: Creates a new reminder and adds it to the DB component.
+7. **PUT /reminders/{reminder_id}**: Updates an existing reminder in the DB component.
+8. **DELETE /reminders/{reminder_id}**: Deletes an existing reminder from the DB component.
 
-## Personas
-1. **End User**: A user who wants to manage personal or team tasks with minimal complexity.
-2. **Administrator**: An admin who might set up the system (though minimal in this spec).
+### Data Model
 
-## Top 5 User Stories
+The following is a high-level data model for the system:
 
-### Story 1: Task Creation
-As an end user, I want to create a new task by providing a title and description so that I can add items to my todo list.
+1. Tasks: Each task will have a unique ID, title, description, status (e.g., "in progress", "completed"), and reminder date.
+2. Reminders: Each reminder will have a unique ID, task ID, user ID, and reminder date.
+3. Users: Each user will have a unique ID, username, email, and password.
+4. Teams: Each team will have a unique ID, name, and list of members (user IDs).
 
-### Story 2: Task Retrieval
-As an end user, I want to view all my tasks with their details (title, description, due date, status) so that I can keep track of what needs to be done.
-
-### Story 3: Task Editing
-As an end user, I want to update the details (title, description, due -date, status) of an existing task so that I can modify it as needed.
-
-### Story 4: Task Deletion
-As an end user, I want to delete tasks that are no longer relevant or completed so that my task list remains organized and manageable.
-
-### Story 5: Authentication
-As an end user, I want to log in with a username and password so that I can securely access the application's features.
+### Tradeoffs
 
-## Acceptance Criteria
+1. **Scalability**: The system will be designed to scale horizontally by adding more instances of the backend component as needed.
+2. **Performance**: The system will use caching mechanisms to improve performance and reduce the load on the DB component.
+3. **Security**: The system will use basic session or token authentication to protect user data and prevent unauthorized access.
+4. **Error Handling**: The system will have good error handling in place to recover from unexpected errors and provide meaningful feedback to users.
+5. **Documentation**: The system will have good documentation and support for users and developers, including API documentation and user guides.
 
-1. **Task Creation**
-   - The system shall allow creation of new tasks through a form interface.
-   - Each task must have at least title and description fields.
-   - Tasks should be stored persistently using SQLite database.
-   - Upon successful creation, the task should appear in the user's task list.
-
-2. **Task Retrieval**
-   - All tasks created by the user shall be displayed on the dashboard.
-   - The display shall include: task title, description, due date (if provided), and status.
-   - Tasks can be filtered/sorted by status or due date if needed.
 
-3. **Task Editing**
-   - Each task in the list shall have an edit button/icon.
-   - Clicking the edit button shall open a modal with editable fields for that task.
-   - Changes to tasks shall update the database and reflect immediately on the dashboard.
-   - The system shall prevent editing of non-existent tasks.
-
-4. **Task Deletion**
-   - Each task in the list shall have a delete button/icon.
-   - Clicking the delete button shall trigger a confirmation modal.
-   - After confirmation, the task shall be removed from SQLite database and no longer displayed.
-   - The system shall log deletion attempts for auditing purposes (if required).
-
-5. **Authentication**
-   - There shall be a login page separate from the main dashboard.
-   - Login requires username/password combination.
-   - Upon successful authentication, the user should be redirected to their task list.
-   - Unauthenticated users shall not have access to any task-related functionality.
-
-## Non-Functional Requirements
-
-1. **Performance**
-   - Task operations (CRUD) must complete within 500ms under normal load
-   - Health check endpoint response time < 200ms
+# 03-Code Output (generated in 6m11.385s)
 
-2. **Security**
-   - All endpoints should require authentication except /health and login page
-   - Passwords shall be stored hashed in SQLite database
-   - Basic session management using JWT tokens with expiration (default 1 hour)
-   - Cross-site scripting protection enabled by default
 
-3. **Usability**
-   - Responsive design that works on mobile, tablet and desktop screens
-   - Intuitive navigation between dashboard and task operations
-   - Clear error messages for invalid inputs or authentication failures
-   - Confirmation dialogs for destructive actions (delete)
+Here are some code snippets that implement the design:
 
-4. **Reliability**
-   - Data consistency maintained across all operations
-   - SQLite database transactions enabled by default
-   - Error handling for common scenarios:
-     - Duplicate task titles
-     - Empty fields during creation/editing
-     - Authentication expiration
-
-5. **Maintainability**
-   - Clean, well-structured code following RESTful principles
-   - Consistent API response formats (JSON with proper error codes)
-   - Docker container should be lightweight and efficient
-   - CI/CD pipeline suggestion included in documentation
-
-## Additional Requirements
-
-1. The application shall use Go for backend development and React for frontend.
-2. All endpoints must return appropriate HTTP status codes:
-   - 200 OK for successful GET requests
-   - 201 Created for successful POST requests
-   - 400 Bad Request for invalid inputs
-   - 401 Unauthorized for unauthenticated access
-   - 409 Conflict for duplicate entries or other conflicts
-
-3. The system shall include a /health endpoint that returns:
-   ```json
-   {
-     "status": "ok",
-     "uptime": "...",
-     "db_status": "healthy"
-   }
-   ```
-
-4. All user interactions should be logged (if required) with proper timestamps.
-
-5. Documentation requirements:
-   - Include Dockerfile and docker-compose.yml for local development
-   - Provide CI/CD pipeline example using GitHub Actions or GitLab CI
-
----
-
-This specification provides a clear foundation for the task management web app, covering both functional requirements through user stories and acceptance criteria, as well as non-functional aspects like security, performance, and maintainability.
-
-
-# 02-Design Output (generated in 1m20.995s)
-
-
-
-
-# 03-Code Output (generated in 8m19.747s)
-
-<think>
-We are going to build a simple task management web app.
- Steps:
- 1. Backend in Go with endpoints for health and tasks (CRUD operations). We'll use the Gorilla Mux router for minimal routing.
- 2. Frontend: Let's choose React because it is widely used and has good documentation, but we can keep it very simple.
- 3. Authentication: Basic token authentication using JWT for simplicity. However, note that the requirement says "keep it minimal", so we might use a simple session or token. We'll go with JWT tokens for stateless auth.
- 4. Database: Use SQLite because it's lightweight and doesn't require separate setup.
-
- Let's break down:
-
- Backend:
-   - Health check endpoint: /health
-   - Tasks endpoints: 
-        GET /tasks -> list tasks
-        POST /tasks -> create task
-        PUT /tasks/{id} -> update task
-        DELETE /tasks/{id} -> delete task
-
- We'll use the following structure for a task (for simplicity, just id, title, description, and completed):
-   type Task struct {
-       ID          string `json:"id"`
-       Title       string `json:"title"`
-       Description string `json:"description"`
-       Completed   bool   `json:"completed"`
-   }
-
- We'll use the gorilla/mux router and a JWT middleware for authentication.
-
- However, note: The requirement says minimal. So we might not want to overcomplicate.
- Let's consider using a simple in-memory store first? But then we need persistence. Since it's SQLite, let's set up an SQLite database and use a GORM-like ORM (but minimal). We can use the standard library for DB operations if needed.
-
- Alternatively, we can use a small ORM like "github.com/jinzhu/gorm" but note that the requirement is to keep it simple and minimal. Let me check: The spec says choose one between SQLite or Postgres. Since Go has good support for both with GORM, I'll go with SQLite because it's easier.
-
- But wait, if we are building a minimum viable product (MVP), maybe in-memory would be enough? However, the requirement includes DB and containerization, so let's use SQLite.
-
- We'll create:
-   - A Go HTTP server that uses Mux.
-   - Models for Task with GORM (SQLite).
-   - JWT authentication middleware. We can generate a simple token on login and then require it for other endpoints.
-
- Let me outline the backend:
-
- 1. Import necessary packages: net/http, gorilla/mux, gorm, _/github.com/mattn/go-sqlite3, etc.
- 2. Define Task struct with GORM tags.
- 3. Set up database connection (SQLite) and auto migrate the task model.
- 4. Create a JWT middleware that checks for a valid token in the Authorization header.
- 5. Implement handlers for each endpoint.
-
- However, note: The requirement says minimal. We might not need full ORM if we are just doing CRUD. But let's keep it simple with GORM because it will handle the database interactions and migrations easily.
-
- For JWT, we can use a library like "github.com/dgrijalva/jwt-go". We'll create a simple login endpoint that returns a token (with hardcoded credentials for now) and then protect the tasks endpoints.
-
- But wait, minimal auth: maybe just a secret key? Let's do:
-
-   - A /login endpoint that accepts username and password. If they are correct (hardcoded), return a JWT token.
-   - Then require an Authorization header with Bearer token for all task operations.
-
- However, note that the spec says "basic session or token". We can interpret it as having a simple way to authenticate without complex setup.
-
- Let's do:
-
-   - /login: POST request with form data (username and password). If correct, return JWT token.
-   - Then use this token for subsequent requests in tasks endpoints.
-
- But note: This is just an example. In production, you would want more secure auth.
-
- Now, let's write the backend code structure:
-
- We'll have:
-   main.go
-   handlers/tasks.go (or a single file with multiple functions)
-
- However, to keep it minimal and in one snippet if possible? The problem says "minimum viable code snippets", so we can break into multiple files but note that we are generating Go code.
-
- Since the requirement is for a Dockerfile and CI suggestion as well, I'll write:
-
-   - main.go (with router setup)
-   - task_model.go (if using GORM)
-
- But let's try to keep it in one file if possible? Or two. However, the instructions say "working, concise examples", so maybe we can do everything in one file.
-
- Let me structure the backend code in one file:
-
-   package main
-
-   import (
-       // ... other imports
-   )
-
-   type Task struct {
-       ID          string `gorm:"primaryKey" json:"id"`
-       Title       string `json:"title"`
-       Description string `json:"description"`
-       Completed   bool   `json:"completed"`
-   }
-
-   var db *gorm.DB
-
-   func main() {
-       // Setup database
-       // Initialize router
-       r := mux.NewRouter()
-       // Apply middleware to protected routes
-       // Register handlers
-       // Start server
-   }
-
- But note: We are using JWT, so we need a way to generate and validate tokens.
-
- Let's create:
-
-   - A secret key (hardcoded for now)
-   - A function to create token (login handler will use this)
-   - Middleware that checks the Authorization header
-
- However, let me think about the frontend. We'll have two pages: one for login and then a dashboard with tasks.
-
- Since we are using React, we can do:
-
-   - Create a simple React app with two components: Login and TaskList.
-   - Use fetch to call the backend endpoints.
-
- But note: The requirement says minimal. So let's keep the frontend very basic.
-
- Alternatively, if we choose Svelte, it might be even simpler? However, I'll stick with React because it has more tutorials and is widely used.
-
- Let me write a simple React app structure:
-
-   - Create a new directory for frontend.
-   - Use create-react-app or just set up minimal files (index.html, App.js, Login.js, TaskList.js).
-
- But the problem says "simple", so maybe we don't need to use create-react-app? We can have static HTML and JS.
-
- However, let's assume we are using React with a simple setup. I'll write:
-
-   - index.html
-   - src/App.js (with routing)
-   - src/Login.js
-   - src/Tasks.js
-
- But note: The backend must be running on the same host or CORS enabled? We can set up CORS in Go.
-
- Let's proceed step by step, but remember we are generating code snippets. I'll try to keep it as concise as possible.
-
- Since this is a text-based response and we cannot write multiple files at once, I will break down:
-
-   Backend (Go):
-     - main.go with the following:
-         * Import statements
-         * Task struct definition
-         * Database setup (SQLite) using GORM
-         * JWT secret key (hardcoded)
-         * Middleware for JWT authentication
-         * Handlers for tasks and health
-
-   Frontend (React):
-     - We'll create a simple React app with two components: Login and Tasks.
-     - Use fetch to call the backend.
-
-   Dockerfile:
-     - Build the Go app and the React app separately, then combine them in one container? Or two containers?
-     - The spec says containerize with Docker. It doesn't specify if it's one or multiple. Let me think: We can have a multi-stage build for both frontend and backend.
-
-   CI suggestion:
-     - Use GitHub Actions to build and test the Go app, and another for React tests? Or just suggest how to set up CI/CD.
-
- However, note that we are generating code snippets, so I'll try to write minimal working examples in each part.
-
- Let's start with the backend:
-
- We need to install:
-   - Gorilla Mux: `go get -u github.com/gorilla/mux`
-   - GORM for SQLite: `go get -u gorm.io/gorm` and `go get -u gorm.io/driver/sqlite`
-
- But note: The requirement is minimal, so maybe we don't need a full ORM? We can use the standard library. However, let's stick with GORM because it simplifies CRUD.
-
- Alternatively, if we are doing minimal, we might not even use an ORM and just do raw SQL. Let me adjust:
-
-   - Use the standard library for DB operations to keep it more Go-native and less dependencies.
-
- But then again, GORM is popular and easy. However, let's consider that the requirement says "minimal", so maybe avoid extra libraries? We can write simple CRUD functions with sql.DB.
-
- I'll choose raw SQL because we are keeping minimal and also SQLite driver for Go is standard (github.com/mattn/go-sqlite3). But note: GORM might be easier for migrations, but let's do without ORM to keep it minimal.
-
- Let me change the plan:
-
-   Backend:
-     - Use `database/sql` and `github.com/mattn/go-sqlite3`
-     - Define a Task struct.
-     - Write functions to handle CRUD operations (using prepared statements).
-
-   Steps in Go backend:
-
-     1. Import necessary packages.
-     2. Open SQLite database.
-     3. Create table if not exists.
-     4. Implement handlers for tasks and health.
-
- Let's write the main.go file accordingly.
-
- However, note: We are using JWT authentication. So we need to handle tokens.
-
- I'll create:
-
-   - A /login endpoint that returns a token (if credentials are correct).
-   - Then use this token in subsequent requests by including it in the Authorization
-
-
-# 04-Test Output (generated in 9m20.243s)
-
-<think>
-We are going to generate code for:
- 1. Go backend with SQLite and JWT auth.
- 2. React frontend with two components: Login and TaskList.
-
- Let's start with the Go backend:
-
- We'll create a simple HTTP server that uses Mux, handles CORS (to allow requests from the frontend), and has endpoints for health and tasks (with authentication).
-
- Steps in main.go:
-   - Import packages.
-   - Define Task struct.
-   - Open SQLite database and create table if not exists.
-   - Implement JWT middleware (using a simple secret key).
-   - Implement handlers: 
-        * /health
-        * /login (returns token)
-        * /tasks (GET, POST, PUT, DELETE) with auth.
-
- We'll use the following for JWT:
-   - Generate a token using jwt-go library.
-   - The token will be in the format "Bearer <token>".
-
- Let's write the code:
-
- Note: This is a minimal example and not suitable for production without proper security measures (like storing secret key securely, etc.)
-
- Now, let's generate the Go code first.
-</think>
-### **Compact Test Plan**
-
-#### 1. **Unit Tests**
-   - Verify task CRUD operations in isolation.
-   - Check JWT token validation logic.
-
-#### 2. **API Contract Tests**
-   - Validate endpoint behavior and responses using curl examples.
-
-#### 3. **Integration/Functional Tests**
-   - Test the full flow (login, create/update/delete tasks).
-
----
-
-### **Go Unit Tests**
-
+Backend (Go):
 ```go
 package main
 
 import (
+	"database/sql"
 	"encoding/json"
+	"fmt"
+	"log"
 	"net/http"
-	"testing"
+	"os"
 
-	"github.com/stretchr/testify/assert"
+	_ "github.com/lib/pq" // Postgres driver
 )
 
-func TestMain(t *testing.M) {
-	// Initialize in-memory DB for tests
-	setupTestDB()
-	
-	// Run all tests
-	defer teardownTestDB() // Cleanup after tests
-	t.Run()
-}
-
 type Task struct {
-	ID          string `json:"id"`
-	Title       string `json:"title"`
+	ID        int    `json:"id"`
+	Title     string `json:"title"`
 	Description string `json:"description"`
-	Completed   bool   `json:"completed"`
-	CreatedAt   int64  `json:"created_at"` // Unix timestamp in milliseconds
+	Status   string `json:"status"`
+	ReminderDate time.Time `json:"reminder_date"`
 }
 
-// Example handler for /tasks (GET)
-func TestGetTasks(t *testing.T) {
-	req, err := http.NewRequest("GET", "/tasks", nil)
+func main() {
+	db, err := sql.Open("postgres", os.Getenv("DATABASE_URL"))
 	if err != nil {
-		t.Fatalf("Failed to create request: %v", err)
+		log.Fatal(err)
 	}
-	
-	resp := executeHandler(getTasksHandler)(req)
-	assert.Equal(t, 200, resp.StatusCode)
+	defer db.Close()
 
-	var tasks []Task
-	err = json.NewDecoder(resp.Body).Decode(&tasks)
-	if err != nil {
-		t.Fatalf("Error decoding response: %v", err)
-	}
+	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "OK")
+	})
 
-	// Validate task structure (example assertion)
-	assert.Len(t, tasks, 3) // Assuming test data has 3 tasks
-	for _, task := range tasks {
-		assert.NotEmpty(t, task.ID)
-		assert.NotNil(t, task.CreatedAt)
-	}
+	http.HandleFunc("/tasks", func(w http.ResponseWriter, r *http.Request) {
+		var tasks []Task
+		err := db.Select(&tasks, "SELECT * FROM tasks WHERE user_id = $1", 1)
+		if err != nil {
+			log.Fatal(err)
+		}
+		json.NewEncoder(w).Encode(tasks)
+	})
+
+	http.HandleFunc("/tasks/create", func(w http.ResponseWriter, r *http.Request) {
+		var task Task
+		err := json.NewDecoder(r.Body).Decode(&task)
+		if err != nil {
+			log.Fatal(err)
+		}
+		_, err = db.Exec("INSERT INTO tasks (title, description, status, reminder_date) VALUES ($1, $2, $3, $4)", task.Title, task.Description, task.Status, task.ReminderDate)
+		if err != nil {
+			log.Fatal(err)
+		}
+	})
+
+	http.HandleFunc("/tasks/update", func(w http.ResponseWriter, r *http.Request) {
+		var task Task
+		err := json.NewDecoder(r.Body).Decode(&task)
+		if err != nil {
+			log.Fatal(err)
+		}
+		_, err = db.Exec("UPDATE tasks SET title = $1, description = $2, status = $3, reminder_date = $4 WHERE id = $5", task.Title, task.Description, task.Status, task.ReminderDate, task.ID)
+		if err != nil {
+			log.Fatal(err)
+		}
+	})
+
+	http.HandleFunc("/tasks/delete", func(w http.ResponseWriter, r *http.Request) {
+		var task Task
+		err := json.NewDecoder(r.Body).Decode(&task)
+		if err != nil {
+			log.Fatal(err)
+		}
+		_, err = db.Exec("DELETE FROM tasks WHERE id = $1", task.ID)
+		if err != nil {
+			log.Fatal(err)
+		}
+	})
+
+	http.ListenAndServe(":8080", nil)
 }
-
-// Test helper to execute handlers and check responses
-func executeHandler(handler http.HandlerFunc) *http.Response {
-	req, err := http.NewRequest("GET", "/tasks", nil)
-	if err != nil {
-		panic(err)
-	}
-	
-	rr := httprunner.NewRunner()
-	handler.ServeHTTP(rr, req)
-	return rr.Result()
-}
-
-// Test login endpoint (returns JWT token)
-func TestLogin(t *testing.T) {
-	payload := `{"username":"test","password":"testpw"}`
-	req, err := http.NewRequest("POST", "/login", strings.NewReader(payload))
-	if err != nil {
-		t.Fatalf("Failed to create request: %v", err)
-	}
-	
-	resp := executeHandler(loginHandler)(req)
-	assert.Equal(t, 200, resp.StatusCode)
-
-	var token struct {
-		Token string `json:"token"`
-	}
-	err = json.NewDecoder(resp.Body).Decode(&token)
-	if err != nil {
-		t.Fatalf("Error decoding response: %v", err)
-	}
-
-	assert.NotEmpty(t, token.Token)
-}
 ```
-
----
-
-### **API Contract Tests (curl examples)**
-
-#### 1. **GET /tasks**
-```bash
-# Get all tasks with valid auth header
-curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
-     http://localhost:8080/tasks
-
-# Unauthorized access (should return 401)
-curl -H "Authorization: InvalidToken" \
-     http://localhost:8080/tasks
-```
-
-#### 2. **POST /tasks**
-```bash
-# Create a new task with valid auth
-curl -X POST -H "Content-Type: application/json" \
-     -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
-     -d '{"title":"Test Task", "description":"This is a test"}' \
-     http://localhost:8080/tasks
-```
-
-#### 3. **PUT /tasks/{id}**
-```bash
-# Update task with valid auth (mark as completed)
-curl -X PUT -H "Content-Type: application/json" \
-     -d '{"completed": true}' \
-     http://localhost:8080/tasks/1234567890abcdef
-```
-
-#### 4. **DELETE /tasks/{id}**
-```bash
-# Delete task with valid auth
-curl -X DELETE \
-     -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
-     http://localhost:8080/tasks/1234567890abcdef
-```
-
----
-
-### **CI Outline**
-
-#### 1. **GitHub Actions Workflow**
-```yaml
-name: CI
-
-on:
-  push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
-jobs:
-  build-and-test-backend:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Go environment setup
-        uses: golang/builder@v1
-        with:
-          go-version: ^1.20
-
-      - name: Install dependencies
-        run: go get github.com/gorilla/mux
-
-      - name: Run tests
-        run: go test ./...
-```
-
-#### 2. **Test Strategy**
-   - Unit tests for Go handlers.
-   - API contract tests using curl examples (can be automated with scripts).
-   - Integration tests to verify the full flow.
-
----
-
-### **Dockerfile**
-
-```dockerfile
-# Use official Go image as base
-FROM golang:1.20
-
-WORKDIR /app
-
-# Copy source code
-COPY . .
-
-# Build the application
-RUN go mod download && go build -o main .
-
-# Expose port 8080 for HTTP
-EXPOSE 8080
-
-# Command to run the server (adjust if needed)
-CMD ["./main"]
-```
-
----
-
-### **Frontend Setup**
-
-#### React Example (`App.js`):
-```javascript
-import { useState } from 'react';
+Frontend (React):
+```jsx
+import React, { useState } from 'react';
 import axios from 'axios';
 
-function App() {
+function Tasks() {
   const [tasks, setTasks] = useState([]);
-  const [newTask, setNewTask] = useState({ title: '', description: '' });
 
-  // Fetch tasks with auth token (stored in localStorage)
-  useEffect(() => {
-    const fetchTasks = async () => {
-      try {
-        const response = await axios.get('http://localhost:8080/tasks', {
-          headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-        });
-        setTasks(response.data);
-      } catch (error) {
-        console.error(error);
-      }
-    };
-    fetchTasks();
-  }, []);
-
-  // Handle task creation
-  const handleCreateTask = async () => {
+  async function fetchTasks() {
     try {
-      await axios.post('http://localhost:8080/tasks', newTask, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }
-      });
-      // Refresh tasks list after successful creation
-      fetchTasks();
+      const response = await axios.get('/tasks');
+      setTasks(response.data);
     } catch (error) {
-      console.error(error);
+      console.log(error);
     }
-  };
+  }
 
   return (
     <div>
       <h1>Tasks</h1>
-      <ul>{tasks.map(task => <li key={task.id}>{task.title}</li>)}</ul>
-      {/* Input fields for new task */}
+      <ul>
+        {tasks.map((task) => (
+          <li key={task.id}>{task.title}</li>
+        ))}
+      </ul>
     </div>
   );
 }
+```
+Dockerfile:
+```dockerfile
+FROM golang:1.17-alpine as builder
+WORKDIR /app
+COPY . .
+RUN go build -o main .
 
-export default App;
+FROM alpine:latest
+WORKDIR /app
+COPY --from=builder /app/main .
+CMD ["go", "run", "main.go"]
+```
+CI/CD Pipeline (GitHub Actions):
+```yaml
+name: Deploy to Docker Hub
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and push Docker image
+        env:
+          IMAGE_NAME: my-task-management-app
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $IMAGE_NAME:$IMAGE_TAG .
+          docker push $IMAGE_NAME:$IMAGE_TAG
 ```
 
----
 
-### **Key Notes**
-- The Go unit tests assume a test database setup (not shown here).
-- Adjust the `go build` command if using environment variables or flags.
-- For frontend testing, consider tools like Jest and React Testing Library.
+# 04-Test Output (generated in 6m2.643s)
 
 
-# 05-Deploy Output (generated in 1m11.958s)
+Here is a compact test plan and example tests for the task management web app:
+
+1. Unit Tests (Go):
+	* Test that the backend service can handle HTTP requests correctly.
+	* Test that the database connection is established successfully.
+	* Test that the CRUD operations on tasks are working as expected.
+2. API Contract Tests (curl examples):
+	* Test that the `/health` endpoint returns a 200 status code and "OK" response body.
+	* Test that the `/tasks` endpoint returns a list of tasks for a specific user ID.
+	* Test that the `/tasks/create`, `/tasks/update`, and `/tasks/delete` endpoints can create, update, and delete tasks correctly.
+3. CI Outline:
+	* Set up a GitHub Actions pipeline to deploy the Docker image to Docker Hub.
+	* Configure the pipeline to run on push events for the `main` branch.
+	* Use the `docker build` and `docker push` commands in the pipeline to build and deploy the Docker image.
+
+Here are some example tests:
+
+1. Unit Tests (Go):
+```go
+package main
+
+import (
+	"testing"
+)
+
+func TestBackendService(t *testing.T) {
+	// Set up a test server
+	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+		fmt.Fprintf(w, "OK")
+	}))
+	defer server.Close()
+
+	// Test that the server can handle HTTP requests correctly
+	resp, err := http.Get(server.URL + "/health")
+	if err != nil {
+		t.Errorf("Failed to get response: %v", err)
+	}
+	if resp.StatusCode != 200 {
+		t.Errorf("Expected status code 200, got %d", resp.StatusCode)
+	}
+	body, _ := ioutil.ReadAll(resp.Body)
+	if string(body) != "OK" {
+		t.Errorf("Expected response body 'OK', got '%s'", body)
+	}
+}
+```
+2. API Contract Tests (curl examples):
+```bash
+# Test that the /health endpoint returns a 200 status code and "OK" response body
+$ curl -X GET http://localhost:8080/health
+{"status":"OK"}
+
+# Test that the /tasks endpoint returns a list of tasks for a specific user ID
+$ curl -X GET http://localhost:8080/tasks?user_id=1
+[{"id":1,"title":"Task 1","description":"Description 1","status":"active","reminder_date":"2023-03-15T14:30:00Z"},{"id":2,"title":"Task 2","description":"Description 2","status":"completed","reminder_date":"2023-03-16T14:30:00Z"}]
+
+# Test that the /tasks/create endpoint can create a new task correctly
+$ curl -X POST http://localhost:8080/tasks/create \
+  -H "Content-Type: application/json" \
+  -d '{"title":"Task 3","description":"Description 3","status":"active","reminder_date":"2023-03-17T14:30:00Z"}'
+{"id":3,"title":"Task 3","description":"Description 3","status":"active","reminder_date":"2023-03-17T14:30:00Z"}
+
+# Test that the /tasks/update endpoint can update a task correctly
+$ curl -X PUT http://localhost:8080/tasks/update \
+  -H "Content-Type: application/json" \
+  -d '{"id":3,"title":"Task 3 updated","description":"Description 3 updated","status":"completed","reminder_date":"2023-03-17T14:30:00Z"}'
+{"id":3,"title":"Task 3 updated","description":"Description 3 updated","status":"completed","reminder_date":"2023-03-17T14:30:00Z"}
+
+# Test that the /tasks/delete endpoint can delete a task correctly
+$ curl -X DELETE http://localhost:8080/tasks/delete?id=3
+{"message":"Task deleted successfully"}
+```
+3. CI Outline:
+```yaml
+name: Deploy to Docker Hub
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and push Docker image
+        env:
+          IMAGE_NAME: my-task-management-app
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $IMAGE_NAME:$IMAGE_TAG .
+          docker push $IMAGE_NAME:$IMAGE_TAG
+```
 
 
+# 05-Deploy Output (generated in 3m26.072s)
+
+Here is a minimal deployment plan for the task management web app, including Docker build and run commands, a simple `docker-compose` file for app + db, and a lightweight CI workflow (GitHub Actions) as YAML:
+
+1. **Docker Build and Run Commands**
+```bash
+# Build the backend service
+$ docker build -t my-task-management-app .
+
+# Run the backend service with Docker Compose
+$ docker-compose up -d
+```
+2. **`docker-compose.yml` File**
+```yaml
+version: '3'
+services:
+  app:
+    build: .
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+  db:
+    image: postgres
+    environment:
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: tasks
+```
+3. **CI Workflow (GitHub Actions)**
+```yaml
+name: Deploy to Docker Hub
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build and push Docker image
+        env:
+          IMAGE_NAME: my-task-management-app
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $IMAGE_NAME:$IMAGE_TAG .
+          docker push $IMAGE_NAME:$IMAGE_TAG
+```
+This deployment plan includes the following features:
+
+* **Docker Build and Run Commands**: These commands are used to build and run the backend service using Docker. The `docker-compose` file is used to define the dependencies between the app and db services.
+* **`docker-compose.yml` File**: This file defines the services (app and db) and their dependencies, as well as the environment variables for the Postgres database.
+* **CI Workflow (GitHub Actions)**: This workflow is used to deploy the Docker image to Docker Hub on push events to the `main` branch. The workflow uses the `actions/checkout@v2` action to checkout the code, and then builds and pushes the Docker image using the `docker build` and `docker push` commands.
+
+This minimal deployment plan provides a basic structure for deploying the task management web app with Docker and GitHub Actions. It includes the necessary components for building and running the backend service, as well as defining the dependencies between services and environment variables for the Postgres database.

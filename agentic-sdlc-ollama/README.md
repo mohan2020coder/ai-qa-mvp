@@ -40,8 +40,8 @@ unzip agentic-sdlc-ollama.zip
 cd agentic-sdlc-ollama
 go run ./cmd/agentd -spec examples/sample-spec.md -model llama3 -out .workspace
 
-
+ ollama pull deepseek-r1
 go run ./cmd/agentd -spec examples/sample-spec.md -model deepseek-r1 -out .workspace
 
-
+ ollama pull codellama
 go run ./cmd/agentd -spec examples/sample-spec.md -model codellama -out .workspace
