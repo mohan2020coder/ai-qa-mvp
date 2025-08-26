@@ -1,12 +1,13 @@
 module agentic-sdlc-api
 
-go 1.22.0
+go 1.23.0
 
 toolchain go1.24.5
 
 require (
 	github.com/gin-gonic/gin v1.9.0
 	github.com/google/uuid v1.6.0
+	github.com/lib/pq v1.10.9
 	github.com/tmc/langchaingo v0.1.13
 )
 
@@ -32,7 +33,7 @@ require (
 	golang.org/x/arch v0.0.0-20210923205945-b76863e36670 // indirect
 	golang.org/x/crypto v0.29.0 // indirect
 	golang.org/x/net v0.25.0 // indirect
-	golang.org/x/sys v0.27.0 // indirect
+	golang.org/x/sys v0.34.0 // indirect
 	golang.org/x/text v0.20.0 // indirect
 	google.golang.org/protobuf v1.34.1 // indirect
 	gopkg.in/yaml.v3 v3.0.1 // indirect

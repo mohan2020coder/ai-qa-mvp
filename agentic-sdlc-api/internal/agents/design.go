@@ -3,7 +3,7 @@ package agents
 import "github.com/tmc/langchaingo/llms"
 
 func NewDesignAgent(llm llms.Model) AgentInterface {
-	return &baseLLMAgent{
+	return &BaseLLMAgent{
 		name: "02-Design",
 		llm:  llm,
 		system: `You are a pragmatic Software Architect AI.

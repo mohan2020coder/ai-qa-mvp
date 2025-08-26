@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"database/sql"
 	"flag"
 	"fmt"
 	"log"
@@ -16,6 +17,7 @@ import (
 	"agentic-sdlc-api/internal/store"
 
 	"github.com/gin-gonic/gin"
+	_ "github.com/lib/pq"
 	"github.com/tmc/langchaingo/llms/ollama"
 )
 
@@ -39,31 +41,20 @@ func main() {
 	// In-memory store
 	st := store.NewInMemStore()
 
-	// // Agents - product/design/code agents reuse same base for demo
-	// prod := agents.NewProductAgent(llm)
-	// design := agents.NewDesignAgent(llm)
-	// code := agents.NewCodeAgent(llm)
-
-	// agentsList := []agents.AgentInterface{prod, design, code}
-
-	// Example: read from ENV for default workflow setup
-	// agentNames := []string{"Product", "Design", "Code"}
-	// if envAgents := os.Getenv("AGENTS"); envAgents != "" {
-	// 	agentNames = strings.Split(envAgents, ",")
-	// }
-
-	// // Dynamically build
-	// agentsList := agents.BuildAgents(llm, agentNames)
-
-	// // Orchestrator
-	// orc := orchestrator.New(agentsList, ".workspace")
-
-	// Orchestrator
-	// orc := orchestrator.New(agentsList, ".workspace")
+	// DB connection for v2
+	dsn := "postgres://postgres:postgres@localhost:5432/workflowdb?sslmode=disable"
+	db, err := sql.Open("postgres", dsn)
+	if err != nil {
+		log.Fatalf("failed to open DB: %v", err)
+	}
+	defer db.Close()
 
 	// API server
 	r := gin.Default()
 	api.RegisterRoutes(r, st, llm)
+
+	// v2 dynamic workflows (from DB)
+	api.RegisterWorkflowRoutes(r, st, llm, db)
 
 	srv := &http.Server{
 		Addr:    addr,

@@ -3,7 +3,7 @@ package agents
 import "github.com/tmc/langchaingo/llms"
 
 func NewCodeAgent(llm llms.Model) AgentInterface {
-	return &baseLLMAgent{
+	return &BaseLLMAgent{
 		name: "03-Code",
 		llm:  llm,
 		system: `You are a senior full-stack engineer.

@@ -5,7 +5,7 @@ import (
 )
 
 func NewDeployAgent(llm llms.Model) AgentInterface {
-	return &baseLLMAgent{
+	return &BaseLLMAgent{
 		name: "05-Deploy",
 		llm:  llm,
 		system: `You are a DevOps AI.

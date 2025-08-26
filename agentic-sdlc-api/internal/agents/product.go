@@ -3,7 +3,7 @@ package agents
 import "github.com/tmc/langchaingo/llms"
 
 func NewProductAgent(llm llms.Model) AgentInterface {
-	return &baseLLMAgent{
+	return &BaseLLMAgent{
 		name: "01-Product",
 		llm:  llm,
 		system: `You are a senior Product Manager AI.

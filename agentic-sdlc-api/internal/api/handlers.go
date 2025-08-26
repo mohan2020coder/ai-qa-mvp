@@ -5,6 +5,8 @@ import (
 	"agentic-sdlc-api/internal/contracts"
 	"agentic-sdlc-api/internal/orchestrator"
 	"agentic-sdlc-api/internal/store"
+	"agentic-sdlc-api/internal/workflow"
+	"database/sql"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -29,6 +31,42 @@ func RegisterRoutes(r *gin.Engine, s *store.InMemStore, llm *ollama.LLM) {
 	v1.POST("/workflows", deps.createWorkflow)
 	v1.GET("/workflows", deps.listWorkflows)
 	v1.POST("/workflows/:id/executions", deps.startExecution)
+}
+
+func RegisterWorkflowRoutes(r *gin.Engine, s *store.InMemStore, llm *ollama.LLM, db *sql.DB) {
+	deps := &ServerDeps{
+		Store:         s,
+		Orchestrators: make(map[string]*orchestrator.SimpleOrchestrator),
+		LLM:           llm,
+	}
+
+	v1 := r.Group("/api/v2")
+	v1.POST("/workflows", deps.createWorkflow)
+	v1.GET("/workflows", deps.listWorkflows)
+	v1.POST("/workflows/:id/executions", func(c *gin.Context) {
+		id := c.Param("id")
+		wf, err := workflow.LoadWorkflowFromDB(db, llm, id)
+		if err != nil {
+			c.JSON(500, gin.H{"error": err.Error()})
+			return
+		}
+
+		var body struct {
+			Input string `json:"input"`
+		}
+		if err := c.ShouldBindJSON(&body); err != nil {
+			c.JSON(400, gin.H{"error": "invalid JSON"})
+			return
+		}
+
+		results, err := wf.Run(c.Request.Context(), body.Input)
+		if err != nil {
+			c.JSON(500, gin.H{"error": err.Error()})
+			return
+		}
+		c.JSON(200, gin.H{"results": results})
+	})
+
 }
 
 func (d *ServerDeps) createWorkflow(c *gin.Context) {

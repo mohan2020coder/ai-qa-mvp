@@ -5,7 +5,7 @@ import (
 )
 
 func NewTestAgent(llm llms.Model) AgentInterface {
-	return &baseLLMAgent{
+	return &BaseLLMAgent{
 		name: "04-Test",
 		llm:  llm,
 		system: `You are a Test Engineer AI.

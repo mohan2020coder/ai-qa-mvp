@@ -7,16 +7,20 @@ import (
 	"github.com/tmc/langchaingo/llms"
 )
 
-type baseLLMAgent struct {
+type BaseLLMAgent struct {
 	name   string
 	llm    llms.Model
 	system string
 	maxTok int
 }
 
-func (b *baseLLMAgent) Name() string { return b.name }
+func NewLLMAgent(name string, llm llms.Model, system string, maxTok int) *BaseLLMAgent {
+	return &BaseLLMAgent{name: name, llm: llm, system: system, maxTok: maxTok}
+}
 
-func (b *baseLLMAgent) Run(ctx context.Context, input string) (string, error) {
+func (b *BaseLLMAgent) Name() string { return b.name }
+
+func (b *BaseLLMAgent) Run(ctx context.Context, input string) (string, error) {
 	msgs := []llms.MessageContent{
 		llms.TextParts(llms.ChatMessageTypeSystem, b.system),
 		llms.TextParts(llms.ChatMessageTypeHuman, input),
@@ -25,7 +29,7 @@ func (b *baseLLMAgent) Run(ctx context.Context, input string) (string, error) {
 	resp, err := b.llm.GenerateContent(
 		ctx,
 		msgs,
-		llms.WithMaxTokens(2048), // increase output budget
+		llms.WithMaxTokens(b.maxTok),
 	)
 	if err != nil {
 		return "", err
@@ -36,13 +40,6 @@ func (b *baseLLMAgent) Run(ctx context.Context, input string) (string, error) {
 	return resp.Choices[0].Content, nil
 }
 
-func (b *baseLLMAgent) MaxTokens() int {
-	return b.maxTok
-}
+func (b *BaseLLMAgent) MaxTokens() int { return b.maxTok }
 
-func CountTokens(s string) int {
-	return len(s) / 4 // rough estimate: 1 token ~ 4 chars
-}
-func (b *baseLLMAgent) SetMaxTokens(n int) {
-	b.maxTok = n
-}
+func (b *BaseLLMAgent) SetMaxTokens(n int) { b.maxTok = n }
