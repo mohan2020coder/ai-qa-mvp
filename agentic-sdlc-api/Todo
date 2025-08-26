@@ -1,0 +1,9 @@
+Changes Observation 26.8.2025
+-----------------------------------
+1. Only the ollama is running... interchangable with settings is needed
+2. Frontend hookup is not ther
+3. CreateWorkflow for v2 is not db... in memory ... need refactor...
+4. Configuration is to applied
+
+Status - Pending
+---------------------
