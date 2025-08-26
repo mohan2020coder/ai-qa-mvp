@@ -1,0 +1,10 @@
+model: "deepseek-r1"
+addr: ":9090"
+out_dir: ".workspace"
+agents:
+  - Product
+  - Design
+  - Code
+  - Test
+  - Deploy
+store: "memory" # or "sqlite", "redis", etc.
