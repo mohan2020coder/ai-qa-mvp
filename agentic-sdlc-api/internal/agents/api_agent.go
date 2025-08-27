@@ -5,7 +5,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"io/ioutil"
+	"io"
 	"net/http"
 )
 
@@ -58,7 +58,7 @@ func (a *APIAgent) Run(ctx context.Context, input string) (string, error) {
 	}
 	defer resp.Body.Close()
 
-	respBytes, err := ioutil.ReadAll(resp.Body)
+	respBytes, err := io.ReadAll(resp.Body)
 	if err != nil {
 		return "", err
 	}

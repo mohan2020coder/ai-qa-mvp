@@ -27,6 +27,9 @@ CREATE TABLE IF NOT EXISTS workflows (
 -- Nodes inside workflows
 CREATE TABLE IF NOT EXISTS workflow_nodes (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    name TEXT,
+    next_ids JSONB,
+    condition TEXT,
     workflow_id UUID NOT NULL,
     type TEXT NOT NULL,             -- e.g. "llm", "condition", "parallel"
     config JSONB NOT NULL,          -- agent config (model, max tokens, prompt, etc.)
