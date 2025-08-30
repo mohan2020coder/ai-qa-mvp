@@ -1,0 +1,8 @@
+version: "2"
+packages:
+  - name: "db"
+    path: "./db"
+    engine: "postgresql"
+    schema: "./db/schema.sql"
+    queries: "./db/queries"
+    out: "./db/sqlc"
